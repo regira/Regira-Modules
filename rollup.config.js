@@ -34,7 +34,7 @@ export default [
         ],
         output: {
             //file: `dist/${pkg.name}.min.js`,
-            file: "regira.min.js",
+            file: "dist/regira.min.js",
             format: "umd",
             name: "regira", // this is the name of the global object
             esModule: false,
@@ -52,6 +52,13 @@ export default [
         output: [
             {
                 dir: "dist/esm",
+                format: "esm",
+                exports: "named",
+                sourcemap: true,
+            },
+            {
+                // root esm
+                file: "index.js",
                 format: "esm",
                 exports: "named",
                 sourcemap: true,
