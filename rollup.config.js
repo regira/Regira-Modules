@@ -5,9 +5,15 @@ import pkg from "./package.json";
 import commonjs from 'rollup-plugin-commonjs';
 import nodePolyfills from "rollup-plugin-node-polyfills";
 import builtins from "rollup-plugin-node-globals";
+import replace from "@rollup/plugin-replace";
 
 
 const input = ["src/index.js"];
+let moduleName = pkg.name;
+moduleName = "regira";
+
+// The virtual id for our shared "process" mock. We prefix it with \0 so that other plugins ignore it
+const INJECT_PROCESS_MODULE_ID = '\0inject-process';
 
 export default [
     {
@@ -20,7 +26,7 @@ export default [
             commonjs(),
             babel({
                 babelHelpers: "runtime",
-                //exclude: 'node_modules/**', // only transpile our source code
+                exclude: "node_modules/**", // only transpile our source code
                 presets: ["@babel/preset-env"],
                 plugins: [
                     "@babel/transform-runtime",
@@ -33,8 +39,7 @@ export default [
             nodePolyfills()
         ],
         output: {
-            //file: `dist/${pkg.name}.min.js`,
-            file: "dist/regira.min.js",
+            file: `dist/${moduleName}.min.js`,
             format: "umd",
             name: "regira", // this is the name of the global object
             esModule: false,
@@ -47,18 +52,15 @@ export default [
         input,
         plugins: [
             nodeResolve(),
-            commonjs()
+            commonjs(),
+            builtins(),
+            replace({
+                'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+            })
         ],
         output: [
             {
                 dir: "dist/esm",
-                format: "esm",
-                exports: "named",
-                sourcemap: true,
-            },
-            {
-                // root esm
-                file: "index.js",
                 format: "esm",
                 exports: "named",
                 sourcemap: true,
@@ -69,6 +71,6 @@ export default [
                 exports: "named",
                 sourcemap: true,
             },
-        ],
+        ]
     },
 ];
