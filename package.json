@@ -4,12 +4,16 @@
   "description": "",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w"
   },
   "keywords": [],
-  "author": "",
+  "author": "Regira",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.26.0"

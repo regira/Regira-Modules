@@ -33,7 +33,8 @@ export default [
             nodePolyfills()
         ],
         output: {
-            file: `dist/${pkg.name}.min.js`,
+            //file: `dist/${pkg.name}.min.js`,
+            file: "regira.min.js",
             format: "umd",
             name: "regira", // this is the name of the global object
             esModule: false,
