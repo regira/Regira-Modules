@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
+  "_module": "dist/esm/index.js",
+  "module": "src/index.js",
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
   "scripts": {
     "build": "rollup -c",

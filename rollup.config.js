@@ -12,9 +12,6 @@ const input = ["src/index.js"];
 let moduleName = pkg.name;
 moduleName = "regira";
 
-// The virtual id for our shared "process" mock. We prefix it with \0 so that other plugins ignore it
-const INJECT_PROCESS_MODULE_ID = '\0inject-process';
-
 export default [
     {
         // UMD
